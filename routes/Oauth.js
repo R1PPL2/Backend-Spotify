@@ -29,6 +29,9 @@ router.get('/login', (req, res) => {
     const state = randomString(16)
     res.cookie('spotify_auth_state', state)
 
+    console.log("REDIRECT_URI sent to Spotify:", REDIRECT_URI);
+
+
     const scope = 'user-read-private user-read-email user-read-recently-played user-top-read'
     const authURL = `https://accounts.spotify.com/authorize?` +
 
