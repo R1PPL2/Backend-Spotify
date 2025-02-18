@@ -9,12 +9,21 @@ require ('dotenv') .config ()
 
 // middleware
 
-app.use (cors (
-    {
-        origin: 'https://r1ppl2.github.io/',
-        credentials: true,
-    }
-))
+const allowedOrigins = [
+    'http://localhost:3000',  // Local testing
+    'https://r1ppl2.github.io/Spotify-Front/', // ✅ Correct GitHub Pages URL
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+}));
 
 app.use (cookieParser ())
 app.use(express.json())
