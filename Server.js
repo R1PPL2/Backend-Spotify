@@ -36,6 +36,27 @@ app.use((req, res, next) => {
     next();
 });
 
+
+// ✅ Manually Add CORS Headers for All Responses
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    }
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200); // Allow preflight requests
+    }
+    next();
+});
+
+// ✅ Check if CORS Headers Are Applied Correctly
+app.get('/test-cors', (req, res) => {
+    res.json({ message: 'CORS is working!' });
+});
+
 // Imports routes 
 const apiRoutes = require ('./routes/api')
 const oauthRoutes = require ('./routes/Oauth')
