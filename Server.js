@@ -11,7 +11,7 @@ require ('dotenv') .config ()
 
 app.use (cors (
     {
-        origin: 'https://r1ppl2.github.io/Spotify-Front/',
+        origin: 'https://r1ppl2.github.io/',
         credentials: true,
     }
 ))
@@ -20,7 +20,7 @@ app.use (cookieParser ())
 app.use(express.json())
 app.use(express.static('public'))
 app.use(cors())
-app.use(cors({ origin: 'https://r1ppl2.github.io/Spotify-Front/' }));
+app.use(cors({ origin: 'https://r1ppl2.github.io/' }));
 
 
 app.use((req, res, next) => {
