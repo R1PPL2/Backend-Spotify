@@ -11,7 +11,7 @@ require ('dotenv') .config ()
 
 app.use (cors (
     {
-        origin: 'http://localhost:3000',
+        origin: 'https://r1ppl2.github.io/Spotify-Front/',
         credentials: true,
     }
 ))
@@ -20,7 +20,7 @@ app.use (cookieParser ())
 app.use(express.json())
 app.use(express.static('public'))
 app.use(cors())
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://r1ppl2.github.io/Spotify-Front/' }));
 
 
 app.use((req, res, next) => {
