@@ -77,7 +77,10 @@ router.get('/callback', async (req, res) => {
 
             const { access_token, refresh_token } = tokenResponse.data
 
-            res.redirect(`http://localhost:3000#access_token=${access_token}&refresh_token=${refresh_token}`)
+            const FRONTEND_URL = process.env.FRONTEND_URL || 'https://r1ppl2.github.io/Spotify-Front/';
+            res.redirect(`${FRONTEND_URL}#access_token=${access_token}&refresh_token=${refresh_token}`);
+            
+
                 
         } catch (error) {
             console.error("Error exchanging code for token", error)
