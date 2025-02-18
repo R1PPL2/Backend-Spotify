@@ -19,12 +19,10 @@ const getListeningData = async (type, access_token, time_range) => {
 //Route for top tracks
 
 router.get('/top_tracks', async (req, res) => {
-
-    console.log("✅ API /top_tracks was called"); // ✅ Ensure this prints
     
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        console.log("❌ No valid authorization header provided");
+        console.log(" No valid authorization header provided");
         return res.status(401).json({ error: 'Access token is required' });
     }
     
@@ -32,13 +30,10 @@ router.get('/top_tracks', async (req, res) => {
     
     const time_range = req.query.time_range || 'short_term'
 
-    console.log(`Fetching tracks for time_range: ${time_range}`); // ✅ Debug log
-
     if (!access_token) return res.status(400).json({error: 'Access token is required, Please provide valid Access Token'})
 
     try {
         const topTracks = await getListeningData('tracks', access_token, time_range)
-        console.log(`Top tracks fetched:`, topTracks.map(track => track.name)); // ✅ Log track names
         res.json(topTracks)
     } catch(error) {
         res.status(500).json({error: error.message })
@@ -51,7 +46,7 @@ router.get('/top_artists', async (req, res) => {
     
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        console.log("❌ No valid authorization header provided");
+        console.log(" No valid authorization header provided");
         return res.status(401).json({ error: 'Access token is required' });
     }
     
@@ -63,7 +58,6 @@ router.get('/top_artists', async (req, res) => {
 
     try {
         const topArtists = await getListeningData('artists', access_token, time_range)
-        console.log(`Top tracks fetched:`, topArtists.map(artist => artist.name)); // ✅ Log s names
         res.json(topArtists)
     } catch(error) {
         res.status(500).json({error: error.message })

@@ -8,7 +8,8 @@ const router = express.Router()
 
 const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
-const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:4000/oauth/callback'
+const REDIRECT_URI = process.env.REDIRECT_URI || 'https://backend-spotify-1lz3.onrender.com/oauth/callback'
+
 
 // Generate a random string for security
 
@@ -106,7 +107,7 @@ router.get('/refresh_token', async (req, res) => {
         
         res.json({ access_token })
     } catch (error) {
-        console.error("Error refreshing token", error)
+        console.error(error.response?.data, error)
         res.status(400).json({ error: 'Failed to refresh access token' })
     }
 })
