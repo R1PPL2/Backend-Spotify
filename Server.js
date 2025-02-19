@@ -9,8 +9,9 @@ require ('dotenv') .config ()
 
 // middleware
 
+/*
 const allowedOrigins = [
-    'http://localhost:3000',  // Local testing
+    'http://localhost:3000',   Local testing
     'https://r1ppl2.github.io/Spotify-Front/', // ✅ Correct GitHub Pages URL
 ];
 
@@ -24,19 +25,25 @@ app.use(cors({
     },
     credentials: true,
 }));
-
+*/
 app.use (cookieParser ())
 app.use(express.json())
 app.use(express.static('public'))
 app.use(cors())
-app.use(cors({ origin: 'https://r1ppl2.github.io/' }));
+app.use(cors({ origin: 'https://r1ppl2.github.io/Spotify-Front/' }));
+
+
+app.use(cors({
+    origin: 'https://r1ppl2.github.io/Spotify-Front/',
+    credentials: true, // ✅ Required for cookies to be sent
+}));
 
 
 app.use((req, res, next) => {
     next();
 });
 
-
+/*
 // ✅ Manually Add CORS Headers for All Responses
 app.use((req, res, next) => {
     const origin = req.headers.origin;
@@ -56,6 +63,7 @@ app.use((req, res, next) => {
 app.get('/test-cors', (req, res) => {
     res.json({ message: 'CORS is working!' });
 });
+*/
 
 // Imports routes 
 const apiRoutes = require ('./routes/api')

@@ -26,8 +26,14 @@ const randomString = (length) => {
 // login route
 
 router.get('/login', (req, res) => {
-    const state = randomString(16)
-    res.cookie('spotify_auth_state', state)
+    const state = randomString(16);
+    res.cookie('spotify_auth_state', state, { 
+        httpOnly: true, 
+        secure: false, // If testing locally, set to false
+        sameSite: 'lax' // Prevent cross-site issues
+    });
+
+
 
     console.log("REDIRECT_URI sent to Spotify:", REDIRECT_URI);
 
@@ -48,9 +54,17 @@ router.get('/login', (req, res) => {
 // callback Route (exchanges Auth code for Token)
 
 router.get('/callback', async (req, res) => {
+
+    console.log("Query Parameters:", req.query); // ✅ Log all query params
+    console.log("Cookies:", req.cookies); // ✅ Log stored cookies
+
     const code = req.query.code || null
     const state = req.query.state || null
     const storedState = req.cookies ? req.cookies['spotify_auth_state'] : null
+
+    console.log("OAuth State Received:", state);
+    console.log("Stored State in Cookie:", storedState);
+
 
 
 
@@ -80,7 +94,7 @@ router.get('/callback', async (req, res) => {
 
             const { access_token, refresh_token } = tokenResponse.data
 
-            const FRONTEND_URL = process.env.FRONTEND_URL || 'https://r1ppl2.github.io/Spotify-Front/';
+            const FRONTEND_URL = 'http://localhost:3000'
             res.redirect(`${FRONTEND_URL}#access_token=${access_token}&refresh_token=${refresh_token}`);
             
 
