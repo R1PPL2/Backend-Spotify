@@ -94,7 +94,7 @@ router.get('/callback', async (req, res) => {
 
             const { access_token, refresh_token } = tokenResponse.data
 
-            const FRONTEND_URL = 'http://localhost:3000'
+            const FRONTEND_URL = 'https://r1ppl2.github.io/Spotify-Front/'
             res.redirect(`${FRONTEND_URL}#access_token=${access_token}&refresh_token=${refresh_token}`);
             
 
